@@ -1,0 +1,23 @@
+###############################################################################################
+# Server Configuration
+###############################################################################################
+
+server.port: 8888
+spring.application.name: config-server
+spring.profiles.active: git
+
+---
+
+spring.cloud.config.server:
+  git:
+    basedir: clone-repo
+    clone-on-start: true
+    default-label: main
+    refresh-rate: 1
+    skip-ssl-validation: true
+    timeout: 5
+    uri: https://github.com/bkjam/config-server-exploration
+    search-paths:
+      - "config-repo/{application}"
+      - "config-repo/shared"
+

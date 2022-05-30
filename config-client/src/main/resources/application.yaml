@@ -1,0 +1,11 @@
+###############################################################################################
+# Server Configuration
+###############################################################################################
+
+server.port: 8080
+spring.application.name: config-client
+spring.profiles.active: dev, local
+
+spring.config.import: configserver:http://localhost:8888
+
+my.custom.property: "CONFIGURED VIA Config Data - application.yaml"
