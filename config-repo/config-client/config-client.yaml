@@ -1,1 +1,1 @@
-my.custom.property: "Config Server - config-client/application.yaml"
+my.custom.property: "Config Server - config-repo/config-client/application.yaml"
