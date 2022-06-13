@@ -1,1 +1,1 @@
-#my.custom.property: "CONFIGURED VIA Config Data (Config Server) - config-client-local.yaml"
+my.custom.property: "Config Server - config-client/application-local.yaml"
