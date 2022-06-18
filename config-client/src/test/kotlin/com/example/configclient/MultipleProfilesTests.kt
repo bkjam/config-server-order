@@ -27,7 +27,7 @@ class MultipleProfilesTests {
 		val customEnvProperty = environment.getProperty("my.custom.property")
 		println("Custom Property ==> $customEnvProperty")
 		println("Custom Property ==> $customProperty")
-		Assertions.assertEquals("Config Server - config-repo/config-client/config-client-test.yaml", customEnvProperty)
-		Assertions.assertEquals("Config Server - config-repo/config-client/config-client-test.yaml", customProperty)
+		Assertions.assertEquals("config folder - config/application-test.yaml", customEnvProperty)
+		Assertions.assertEquals("config folder - config/application-test.yaml", customProperty)
 	}
 }
