@@ -4,10 +4,15 @@
 
 server.port: 8888
 spring.application.name: config-server
+spring.profiles.active: native
 
 ---
 
 spring.cloud.config.server:
+  native:
+    search-locations:
+      - "file:../config-repo/shared"
+      - "file:../config-repo/{application}"
   git:
     basedir: clone-repo
     clone-on-start: true
@@ -21,5 +26,9 @@ spring.cloud.config.server:
       - "config-repo/{application}"
 
 ---
-#spring.config.activate.on-profile: local
-#spring.cloud.config.server.git.uri: file:///home/amanda/Desktop/config-server-order/config-repo
+
+spring.config.activate.on-profile: local
+spring.cloud.config.server:
+  git:
+    clone-on-start: false
+    uri: file:../
