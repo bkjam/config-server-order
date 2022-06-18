@@ -1,0 +1,2 @@
+my.custom.property: "config folder - config/application.yaml"
+#spring.config.import: configserver:http://localhost:8888

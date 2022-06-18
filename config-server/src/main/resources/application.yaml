@@ -4,7 +4,6 @@
 
 server.port: 8888
 spring.application.name: config-server
-spring.profiles.active: git
 
 ---
 
@@ -16,8 +15,11 @@ spring.cloud.config.server:
     refresh-rate: 1
     skip-ssl-validation: true
     timeout: 5
-    uri: https://github.com/bkjam/config-server-exploration
+    uri: https://github.com/bkjam/config-server-order
     search-paths:
-      - "config-repo/{application}"
       - "config-repo/shared"
+      - "config-repo/{application}"
 
+---
+#spring.config.activate.on-profile: local
+#spring.cloud.config.server.git.uri: file:///home/amanda/Desktop/config-server-order/config-repo

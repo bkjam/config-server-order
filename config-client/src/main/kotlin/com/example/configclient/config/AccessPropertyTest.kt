@@ -1,4 +1,4 @@
-package com.example.configclient.service
+package com.example.configclient.config
 
 import com.example.configclient.model.ConfigProperty
 import org.slf4j.LoggerFactory
@@ -25,6 +25,7 @@ class AccessPropertyTest(
         logger.info("Using @Value ==> $customProperty")
         logger.info("Using Environment API ==> ${environment.getProperty("my.custom.property")}")
         logger.info("Using @ConfigurationProperties ==> ${configProperty.property}")
+        logger.info("Using System.getProperties ==> ${System.getProperty("my.custom.property")}")
         logger.info("================================================================")
     }
 }

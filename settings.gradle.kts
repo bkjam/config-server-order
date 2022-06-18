@@ -1,4 +1,4 @@
-rootProject.name = "config-server-exploration"
+rootProject.name = "config-server-order"
 
 // order does matters
 include("config-client")
