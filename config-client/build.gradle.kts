@@ -57,7 +57,6 @@ tasks.withType<Test> {
 //tasks.bootRun {
 //	systemProperty("my.custom.property", "Java System Properties")
 //	systemProperty("spring.config.import", "configserver:http://localhost:8888")
-//	systemProperty("spring.config.location", "/home/amanda/Desktop/config/")
 //}
 
 jib {
