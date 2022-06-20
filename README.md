@@ -5,11 +5,11 @@ Profiles and Spring Cloud Config. For more information, refer to the blog post I
 
 ## Usage
 
-### Spring Cloud Config Server
+### 1) Spring Cloud Config Server
 
 There are 3 ways you can start the Spring Cloud Config Server
 
-- Start Spring Cloud Config Server with Remote Git Repository
+- **[Default]** Start Spring Cloud Config Server with Remote Git Repository
     
    ```bash
    ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=git
@@ -21,19 +21,30 @@ There are 3 ways you can start the Spring Cloud Config Server
    ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=native
    ```
 
-- [Not recommended] Start Spring Cloud Config Server with Local Git Repository (will git reset when git tree is not clean)
+- **[Not recommended]** Start Spring Cloud Config Server with Local Git Repository (will git reset when git tree is not clean)
 
    ```bash
    ./gradlew config-server:bootrun -Pargs=--spring.profiles.active="git,local"
    ```
 
-### Spring Boot Application (Config Client)
+### 2) Spring Boot Application (Config Client)
 
 - Start the Config Client
 
    ```bash
    ./gradlew config-client:bootrun
    ```
+
+## Other useful commands
+
+```bash
+# Dockerize Config Client
+./gradlew config-client:jibDockerBuild
+
+# Start Dockerize Config Client
+docker run -d --name config-client --network=host --env SPRING_CONFIG_ADDITIONAL_LOCATION='/config/' --volume <path_to_config_folder>:/config config-client
+
+```
 
 ## References / Credits
 
