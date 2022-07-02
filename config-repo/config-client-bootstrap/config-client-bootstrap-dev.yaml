@@ -1,6 +1,1 @@
 my.custom.property: "Config Server - config-repo/config-client-bootstrap/config-client-bootstrap-dev.yaml"
-
-spring.cloud.config:
-  allow-override: true
-  override-none: true
-  override-system-properties: false
