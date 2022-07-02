@@ -2,5 +2,5 @@ my.custom.property: "Config Server - config-repo/config-client-v2/config-client-
 
 spring.cloud.config:
   allow-override: true
-  override-none: false
+  override-none: true
   override-system-properties: false
