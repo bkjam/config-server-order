@@ -1,39 +1,137 @@
 # Exploring Loading Precedence for Properties files with Spring Boot, Spring Profiles, and Spring Cloud Config Server
 
 This is my exploration to play around and understand how properties files are loaded in Spring Boot when using with Spring 
-Profiles and Spring Cloud Config. For more information, refer to the blog post I have on medium.
+Profiles and Spring Cloud Config. For more information, refer to the blog post I have on medium below.
+
+| Exploration | Article |
+| --- | --- |
+| Testing Loading Precedence of Properties Files | [5 Observations on Spring Boot's Loading Precedence for Properties Files with Spring Cloud Config](https://betterprogramming.pub/5-observations-on-spring-boots-loading-precedence-for-properties-files-with-spring-cloud-config-331d1af9052e) |
+| Testing Local Development<br>Testing Refresh Properties | Coming Soon... | 
+
+In this repository, I have configured some Spring Boot applications that loads configurations from the Spring Cloud Config Server:
+
+| Spring Boot Application | Description |
+| --- | --- |
+| config-client | sample app used for understanding order of precedence for properties files with Spring Cloud Config |
+| config-client-bootstrap | sample app used for understanding spring cloud config with bootstrap |
+| config-client-local | sample app used for understanding localhost development with Spring Cloud Config |
+| config-client-refresh  | sample app used for understanding properties refresh |
+
+Additionally, the folders are for the following purpose:
+
+| Folder | Description |
+| --- | --- |
+| config-repo | stores the remote properties files |
+| config-server | Spring Cloud Config Server project |
 
 ## Usage
 
-### 1) Spring Cloud Config Server
+### Exploration: Testing Loading Precedence of Properties Files
 
-There are 3 ways you can start the Spring Cloud Config Server
+1. Start the Spring Cloud Config Server
 
-- **[Default]** Start Spring Cloud Config Server with Remote Git Repository
-    
    ```bash
    ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=git
    ```
 
-- Start Spring Cloud Config Server with Local File Repository
-    
-   ```bash
-   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=native
-   ```
-
-- **[Not recommended]** Start Spring Cloud Config Server with Local Git Repository (will git reset when git tree is not clean)
-
-   ```bash
-   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active="git,local"
-   ```
-
-### 2) Spring Boot Application (Config Client)
-
-- Start the Config Client
+2. Start the Config Client
 
    ```bash
    ./gradlew config-client:bootrun
    ```
+
+3. Check the order of precedence
+
+   ```bash
+   curl localhost:8080/actuator/env
+   ```
+
+### Exploration: Testing Localhost Development
+
+#### 1) Using Property "spring.cloud.config.allow-override"
+
+1. Start the Spring Cloud Config Server
+
+   ```bash
+   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=git
+   ```
+
+2. Start the Config Client
+
+   ```bash
+   ./gradlew config-client-local:bootrun
+   ```
+
+#### 2) Using "local" Spring Profiles
+
+1. Start the Spring Cloud Config Server
+
+   ```bash
+   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=git
+   ```
+
+2. Start the Config Client with local Profiles
+
+   ```bash
+   ./gradlew config-client-local:bootrun -Pargs=--spring.profiles.active=dev,local
+   ```
+
+#### 3) Using localhost Spring Cloud Config Server
+
+1. Start the Spring Cloud Config Server with Local File Repository
+
+   ```bash
+   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=native
+   ```
+
+2. Start the Config Client
+
+   ```bash
+   ./gradlew config-client-local:bootrun
+   ```
+
+### Exploration: Testing Refresh Properties (Manual Refresh)
+
+1. Start the Spring Cloud Config Server
+
+   ```bash
+   ./gradlew config-server:bootrun -Pargs=--spring.profiles.active=git
+   ```
+
+2. Start the Config Client
+
+   ```bash
+   ./gradlew config-client-refresh:bootrun
+   ``` 
+
+3. Print the Custom Property by calling the endpoint
+
+   ```bash
+   curl localhost:8080/api/print
+   ``` 
+
+4. Update the remote properties files (config-client-refresh-dev.yaml)
+
+   ```bash
+   # Update config-client-refresh-dev.yaml
+   
+   # Commit and push changes to remote branch
+   git add config-repo
+   git commit -m "update configurations"
+   git push
+   ``` 
+
+5. Refresh the config-client
+    
+   ```bash
+   curl -X POST localhost:8080/actuator/refresh
+   ```
+
+6. Print the Custom Property by calling the endpoint. You should notice that the property have been updated.
+
+   ```bash
+   curl localhost:8080/api/print
+   ``` 
 
 ## Other useful commands
 
@@ -43,7 +141,6 @@ There are 3 ways you can start the Spring Cloud Config Server
 
 # Start Dockerize Config Client
 docker run -d --name config-client --network=host --env SPRING_CONFIG_ADDITIONAL_LOCATION='/config/' --volume <path_to_config_folder>:/config config-client
-
 ```
 
 ## References / Credits

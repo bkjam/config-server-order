@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.7.0"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	id("com.google.cloud.tools.jib") version "3.2.1"
 	kotlin("jvm") version "1.5.32"
 	kotlin("plugin.spring") version "1.5.32"
 }
@@ -30,9 +29,6 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-	// Test
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 dependencyManagement {
@@ -48,30 +44,8 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-//	systemProperty("spring.profiles.active", "dev, test")
-//	testLogging.showStandardStreams = true
-}
-
 tasks.bootRun {
-//	systemProperty("my.custom.property", "Java System Properties")
-//	systemProperty("spring.config.import", "configserver:http://localhost:8888")
 	if (project.hasProperty("args")) {
 		args(project.properties["args"].toString().split("|"))
-	}
-}
-
-jib {
-	from {
-		image = "gcr.io/distroless/java:11-debug"
-	}
-	to {
-		image = "config-client"
-		tags = setOf("latest")
-	}
-	container {
-		jvmFlags = listOf("-Xms512m", "-Dserver.port=8080")
-		ports = listOf("8080")
 	}
 }

@@ -42,7 +42,7 @@ dependencyManagement {
 
 tasks.bootRun {
 	if (project.hasProperty("args")) {
-		args(project.properties["args"].toString().split(";"))
+		args(project.properties["args"].toString().split("|"))
 	}
 }
 

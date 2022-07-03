@@ -3,18 +3,16 @@
 ###############################################################################################
 
 server.port: 8080
-spring.application.name: config-client
-spring.profiles.active: dev, local
+spring.application.name: config-client-local
+spring.profiles.active: dev
 
 #logging.level:
 #  root: INFO
 #  org.springframework.cloud.config: TRACE
 #  org.springframework.boot: TRACE
 
-management.endpoints.web.exposure.include: env, health, refresh
+management.endpoints.web.exposure.include: env, health
 
 spring.config.import: configserver:http://localhost:8888
-#spring.cloud.config.import-check.enabled: false
-#spring.config.use-legacy-processing: true
 
 my.custom.property: "classpath - src/main/resources/application.yaml"
