@@ -11,8 +11,7 @@ spring.profiles.active: dev
 #  org.springframework.cloud.config: TRACE
 #  org.springframework.boot: TRACE
 
-management:
-  endpoints.web.exposure.include: env, health, refresh
+management.endpoints.web.exposure.include: env, health, refresh
 
 spring.config.import: configserver:http://localhost:8888
 
