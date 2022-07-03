@@ -1,4 +1,4 @@
-my.custom.property: "Config Server - config-repo/config-client-override/config-client-override-dev.yaml"
+my.custom.property: "Config Server - config-repo/config-client-local/config-client-local-dev.yaml"
 
 spring.cloud.config:
   allow-override: true
