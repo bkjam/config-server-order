@@ -6,7 +6,7 @@ Profiles and Spring Cloud Config. For more information, refer to the blog post I
 | Exploration | Article |
 | --- | --- |
 | Testing Loading Precedence of Properties Files | [5 Observations on Spring Boot's Loading Precedence for Properties Files with Spring Cloud Config](https://betterprogramming.pub/5-observations-on-spring-boots-loading-precedence-for-properties-files-with-spring-cloud-config-331d1af9052e) |
-| Testing Local Development<br>Testing Refresh Properties | Coming Soon... | 
+| Testing Local Development<br>Testing Refresh Properties | [3 Useful Tips for Developers when using Spring Cloud Config](https://medium.com/@kbryan1008/3-useful-tips-for-developers-when-using-spring-cloud-config-de7b874f9911) | 
 
 In this repository, I have configured some Spring Boot applications that loads configurations from the Spring Cloud Config Server:
 
